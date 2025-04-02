@@ -1,0 +1,65 @@
+{
+    "components": [
+      {
+        "Part Number": "02-02017-00052",
+        "manufacturers": [
+          {
+            "MPN": "CLOSB10AKOSNNMC",
+            "Manufacturer name": "Samsung",
+            "Carbon emission KgCO2e": 0.0001209
+          },
+          {
+            "MPN": "CLOSB10AKOSNNMB",
+            "Manufacturer name": "Apple",
+            "Carbon emission KgCO2e": 0.0001589
+          },
+          {
+            "MPN": "CLOSB10AKOSNNMD",
+            "Manufacturer name": "JCI",
+            "Carbon emission KgCO2e": 0.0001390
+          }
+        ]
+      },
+      {
+        "Part Number": "02-1313-06",
+        "manufacturers": [
+          {
+            "MPN": "CLOSB10AKOSNNMC",
+            "Manufacturer name": "Nokia",
+            "Carbon emission KgCO2e": 0.0007890
+          },
+          {
+            "MPN": "CLOSB10AKOSNNMB",
+            "Manufacturer name": "HP",
+            "Carbon emission KgCO2e": 0.0006789
+          },
+          {
+            "MPN": "CLOSB10AKOSNNMD",
+            "Manufacturer name": "Dell",
+            "Carbon emission KgCO2e": 0.00057890
+          }
+        ]
+      },
+      {
+        "Part Number": "02-1313-09",
+        "manufacturers": [
+          {
+            "MPN": "CLOSB10AKOSNNMC",
+            "Manufacturer name": "Nvidia",
+            "Carbon emission KgCO2e": 0.00053456
+          },
+          {
+            "MPN": "CLOSB10AKOSNNMB",
+            "Manufacturer name": "AMD",
+            "Carbon emission KgCO2e": 0.000098767
+          },
+          {
+            "MPN": "CLOSB10AKOSNNMD",
+            "Manufacturer name": "ChinaCorp",
+            "Carbon emission KgCO2e": 0.00009876
+          }
+        ]
+      }
+    ]
+  } 
+  
