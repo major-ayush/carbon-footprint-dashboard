@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from "chart.js";
 import { Pie, Bar } from "react-chartjs-2";
 import partsData from "../data/partsData.json";
+import Donut3DChart from "./Donut3DChart";
+
 
 ChartJS.register(ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
@@ -10,9 +12,12 @@ function SummaryPage() {
   const location = useLocation();
   
   const selectedParts = useMemo(() => location.state?.parts || [], [location.state]);
+  const annualQuantity = useMemo(() => location.state?.annualQuantity || [], [location.state]);
   const [filteredParts, setFilteredParts] = useState([]);
   const [totalHighest, setTotalHighest] = useState(0);
   const [totalLowest, setTotalLowest] = useState(0);
+  const [annualHighest, setAnnualHighest] = useState(0);
+  const [annuallowest, setAnnualLowest] = useState(0);
   const [missingParts, setMissingParts] = useState([]);
 
   useEffect(() => {
@@ -54,6 +59,8 @@ function SummaryPage() {
       setFilteredParts(filtered);
       setTotalLowest(lowestTotal);
       setTotalHighest(highestTotal);
+      setAnnualHighest((highestTotal * annualQuantity));
+      setAnnualLowest((lowestTotal * annualQuantity));
     }
   }, [selectedParts]);
   const navigate = useNavigate();
@@ -114,39 +121,36 @@ function SummaryPage() {
               </table>
             </div>
             <div className="mt-8 text-lg font-semibold text-center text-gray-700 bg-gray-200 p-4 rounded-lg shadow">
-              <p>Total Highest Emission: {totalHighest.toFixed(6)} KgCO2e</p>
-              <p>Total Lowest Emission: {totalLowest.toFixed(6)} KgCO2e</p>
-              <p>Total Carbon Saved: {(totalHighest - totalLowest).toFixed(6)} KgCO2e</p>
-              <p>Percentage Carbon Saved: {(((totalHighest - totalLowest)/totalHighest)*100.0).toFixed(2)}%</p>
-            </div>
+  <div className="text-left mx-auto w-max">
+    <p className="whitespace-pre">Total Annual Highest Emission:     {annualHighest.toFixed(6)} KgCO2e</p>
+    <p className="whitespace-pre">Total Annual Lowest Emission:      {annuallowest.toFixed(6)} KgCO2e</p>
+    <p className="whitespace-pre">Total Annual Carbon Saved:           {(annualHighest - annuallowest).toFixed(6)} KgCO2e</p>
+    <p className="whitespace-pre">Percentage Carbon Saved:             {(((totalHighest - totalLowest) / totalHighest) * 100.0).toFixed(2)}%</p>
+  </div>
+</div>
+
             <div className="mt-8 flex justify-around items-center gap-6">
-              <div className="w-1/3 bg-white p-4 rounded-lg shadow-lg">
-                <Pie
-                  data={{
-                    labels: ["Potential Emissions Saved", "Remaining Emissions"],
-                    datasets: [
-                      {
-                        data: [totalHighest - totalLowest, totalLowest],
-                        backgroundColor: ["#4caf50", "#ff6b6b"],
-                      },
-                    ],
-                  }}
-                />
-              </div>
-              <div className="w-1/3 bg-white p-4 rounded-lg shadow-lg">
+            <div className="w-1/2 bg-white p-3 rounded-lg shadow-lg">
+  <div className="flex justify-center items-center">
+    <Donut3DChart title = "Annual Carbon Savings" labels={['Total Annual Carbon Saved', 'Total Annual Lowest Emission']} data={[(annualHighest - annuallowest), annuallowest]} />
+  </div>
+</div>
+              <div className="w-1/2 bg-white p-4 rounded-lg shadow-lg">
+              <div className="flex justify-center items-center">
                 <Bar
                   data={{
                     labels: ["Highest Emission", "Lowest Emission"],
                     datasets: [
                       {
                         label: "Carbon Emissions (KgCO2e)",
-                        data: [totalHighest, totalLowest],
+                        data: [annualHighest, annuallowest],
                         backgroundColor: ["#ff3b3b", "#32a852"],
-                        barThickness: 40,
+                        barThickness: 75,
                       },
                     ],
                   }}
                 />
+              </div>
               </div>
             </div>
           </>

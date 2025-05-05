@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import partsData from "../data/partsData.json";
 import { Pie, Bar } from "react-chartjs-2";
+import Donut3DChart from "./Donut3DChart";
 
 function DetailsPage() {
   const location = useLocation();
@@ -59,26 +60,21 @@ function DetailsPage() {
           </tbody>
         </table>
         <div className="mt-8 text-lg font-semibold text-center text-gray-700 bg-gray-200 p-4 rounded-lg shadow">
-              <p>Total Highest Emission: {totalHighest.toFixed(6)} KgCO2e</p>
-              <p>Total Lowest Emission: {totalLowest.toFixed(6)} KgCO2e</p>
-              <p>Total Carbon Saved: {(totalHighest - totalLowest).toFixed(6)} KgCO2e</p>
-              <p>Percentage Carbon Saved: {(((totalHighest - totalLowest)/totalHighest)*100.0).toFixed(2)}%</p>
-      </div>
+  <div className="text-left mx-auto w-max">
+    <p className="whitespace-pre">Total Highest Emission:           {totalHighest.toFixed(6)} KgCO2e</p>
+    <p className="whitespace-pre">Total Lowest Emission:            {totalLowest.toFixed(6)} KgCO2e</p>
+    <p className="whitespace-pre">Total Carbon Saved:                 {(totalHighest - totalLowest).toFixed(6)} KgCO2e</p>
+    <p className="whitespace-pre">Percentage Carbon Saved:      {(((totalHighest - totalLowest) / totalHighest) * 100.0).toFixed(2)}%</p>
+  </div>
+</div>
       <div className="mt-8 flex justify-around items-center gap-6">
-                    <div className="w-1/3 bg-white p-4 rounded-lg shadow-lg">
-                      <Pie
-                        data={{
-                          labels: ["Potential Emissions Saved", "Remaining Emissions"],
-                          datasets: [
-                            {
-                              data: [totalHighest - totalLowest, totalLowest],
-                              backgroundColor: ["#4caf50", "#ff6b6b"],
-                            },
-                          ],
-                        }}
-                      />
-                    </div>
-                    <div className="w-1/3 bg-white p-4 rounded-lg shadow-lg">
+      <div className="w-1/2 bg-white p-3 rounded-lg shadow-lg">
+  <div className="flex justify-center items-center">
+  <Donut3DChart title = "Total Carbon Saving" labels={['Total Carbon Saved', 'Lowest Emission']} data={[(totalHighest - totalLowest), totalLowest]} />
+  </div>
+</div>
+                    <div className="w-1/2 bg-white p-4 rounded-lg shadow-lg">
+                    <div className="flex justify-center items-center">
                       <Bar
                         data={{
                           labels: ["Highest Emission", "Lowest Emission"],
@@ -87,11 +83,12 @@ function DetailsPage() {
                               label: "Carbon Emissions (KgCO2e)",
                               data: [totalHighest, totalLowest],
                               backgroundColor: ["#ff3b3b", "#32a852"],
-                              barThickness: 40,
+                              barThickness: 75,
                             },
                           ],
                         }}
                       />
+                    </div>
                     </div>
                     </div>
       </div>
