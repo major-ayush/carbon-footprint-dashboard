@@ -70,24 +70,45 @@ function DetailsPage() {
       <div className="mt-8 flex justify-around items-center gap-6">
       <div className="w-1/2 bg-white p-3 rounded-lg shadow-lg">
   <div className="flex justify-center items-center">
-  <Donut3DChart title = "Total Carbon Saving" labels={['Total Carbon Saved', 'Lowest Emission']} data={[(totalHighest - totalLowest), totalLowest]} />
+  <Donut3DChart title = "Total Carbon Savings" labels={['Total Carbon Saved', 'Lowest Emission']} data={[(totalHighest - totalLowest), totalLowest]} />
   </div>
 </div>
                     <div className="w-1/2 bg-white p-4 rounded-lg shadow-lg">
                     <div className="flex justify-center items-center">
-                      <Bar
-                        data={{
-                          labels: ["Highest Emission", "Lowest Emission"],
-                          datasets: [
-                            {
-                              label: "Carbon Emissions (KgCO2e)",
-                              data: [totalHighest, totalLowest],
-                              backgroundColor: ["#ff3b3b", "#32a852"],
-                              barThickness: 75,
-                            },
-                          ],
-                        }}
-                      />
+                    <Bar
+  data={{
+    labels: ["Highest Emission", "Lowest Emission"],
+    datasets: [
+      {
+        label: "Highest Carbon Emission (KgCO2e)",
+        data: [totalHighest, 0],
+        backgroundColor: "#ff3b3b",
+        barThickness: 60,
+      },
+      {
+        label: "Lowest Carbon Emission (KgCO2e)",
+        data: [0, totalLowest],
+        backgroundColor: "#32a852",
+        barThickness: 60,
+      },
+    ],
+  }}
+  options={{
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "bottom",
+        labels: {
+          font: {
+            size: 10,
+          },
+        },
+      },
+    }
+  }}
+/>
+
+
                     </div>
                     </div>
                     </div>

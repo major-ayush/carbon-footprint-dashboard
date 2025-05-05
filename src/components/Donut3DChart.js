@@ -23,7 +23,7 @@ const PieChart = ({ title, labels, data }) => {
         }
       }
     },
-    colors: ['#006400', '#ff0000'], // Dark green and dark red
+    colors: ['#004d00', '#7CFC00'], // Dark green and dark red
     series: [{
       name: 'Carbon Emmision in (KgCO2e)',
       data: labels.map((label, index) => ({
