@@ -138,7 +138,7 @@ function SummaryPage() {
     <PieChart
   highestEmission={parseFloat(annualHighest.toFixed(6))}
   lowestEmission={parseFloat(annuallowest.toFixed(6))}
-  savings={parseFloat(annualHighest.toFixed(6)) - parseFloat(annuallowest.toFixed(6))}
+  savings={parseFloat((parseFloat(annualHighest.toFixed(6)) - parseFloat(annuallowest.toFixed(6))).toFixed(6))}
 />
 
   </div>
