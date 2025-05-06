@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import partsData from "../data/partsData.json";
 import { Pie, Bar } from "react-chartjs-2";
 import Donut3DChart from "./Donut3DChart";
+import PieChart from "./PieChart";
+import CarbonEmissionsChart from "./BarChart";
 
 function DetailsPage() {
   const location = useLocation();
@@ -30,7 +32,7 @@ function DetailsPage() {
   }, [partNumber]);
 
   return (
-    <div className="min-h-screen bg-gray-100 p-10">
+    <div className="min-h-screen bg-gray-100 p-8 flex flex-col items-center">
       <div className="max-w-5xl mx-auto bg-white p-8 shadow-xl rounded-3xl">
         <h1 className="text-4xl font-bold text-center text-green-700 mb-6">
           Carbon Emissions for all manufacturers
@@ -70,43 +72,20 @@ function DetailsPage() {
       <div className="mt-8 flex justify-around items-center gap-6">
       <div className="w-1/2 bg-white p-3 rounded-lg shadow-lg">
   <div className="flex justify-center items-center">
-  <Donut3DChart title = "Total Carbon Savings" labels={['Total Carbon Saved', 'Lowest Emission']} data={[(totalHighest - totalLowest), totalLowest]} />
+  {/* <Donut3DChart title = "Total Carbon Savings" labels={['Total Carbon Saved', 'Reduced Carbon Emission']} data={[(totalHighest - totalLowest), totalLowest]} /> */}
+  <PieChart
+  highestEmission={parseFloat(totalHighest.toFixed(6))}
+  lowestEmission={parseFloat(totalLowest.toFixed(6))}
+  savings={parseFloat(totalHighest.toFixed(6)) - parseFloat(totalLowest.toFixed(6))}
+/>
   </div>
 </div>
                     <div className="w-1/2 bg-white p-4 rounded-lg shadow-lg">
                     <div className="flex justify-center items-center">
-                    <Bar
-  data={{
-    labels: ["Highest Emission", "Lowest Emission"],
-    datasets: [
-      {
-        label: "Highest Carbon Emission (KgCO2e)",
-        data: [totalHighest, 0],
-        backgroundColor: "#ff3b3b",
-        barThickness: 60,
-      },
-      {
-        label: "Lowest Carbon Emission (KgCO2e)",
-        data: [0, totalLowest],
-        backgroundColor: "#32a852",
-        barThickness: 60,
-      },
-    ],
-  }}
-  options={{
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "bottom",
-        labels: {
-          font: {
-            size: 10,
-          },
-        },
-      },
-    }
-  }}
-/>
+                    <CarbonEmissionsChart
+                  highestEmission={parseFloat(totalHighest.toFixed(6))}
+                  lowestEmission={parseFloat(totalLowest.toFixed(6))}
+                />
 
 
                     </div>

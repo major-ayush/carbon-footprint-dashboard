@@ -9,7 +9,7 @@ const PieChart = ({ highestEmission = 100, lowestEmission = 50, savings = 30 }) 
       backgroundColor: 'transparent',
     },
     title: {
-      text: null,
+      text: "Highest vs Lowest Carbon Emissions",
     },
     tooltip: {
       pointFormat: '<b>{point.name}: {point.y} KgCO2e</b>',
@@ -21,30 +21,34 @@ const PieChart = ({ highestEmission = 100, lowestEmission = 50, savings = 30 }) 
     },
     plotOptions: {
       pie: {
-        innerSize: '50%',
+        innerSize: '40%', // Adjust innerSize for outer ring width
         borderWidth: 0,
         dataLabels: {
           enabled: false,
         },
         showInLegend: true,
+        states: {
+          hover: {
+            brightness: 0 // Prevent color change on hover
+          }
+        }
       },
     },
     series: [
-      // Outer Ring (Highest Emission)
       {
         name: 'Highest Emission',
-        size: '100%', // Full size for outer ring
+        size: '100%',
+        innerSize: '40%', // Set innerSize to increase outer ring width
         data: [{
           name: 'Highest Emission',
           y: highestEmission,
           color: '#FF0000', // Red
         }],
       },
-      // Inner Ring (Lowest Emission + Savings)
       {
         name: 'Inner Ring',
-        size: '80%',  // Smaller than outer ring
-        innerSize: '50%', // Creates the donut hole
+        size: '70%',
+        innerSize: '50%',
         data: [
           {
             name: 'Lowest Emission',

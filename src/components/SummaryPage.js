@@ -4,6 +4,8 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend, BarElement, CategoryScal
 import { Pie, Bar } from "react-chartjs-2";
 import partsData from "../data/partsData.json";
 import Donut3DChart from "./Donut3DChart";
+import PieChart from "./PieChart";
+import CarbonEmissionsChart from "./BarChart";
 
 
 ChartJS.register(ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
@@ -132,23 +134,20 @@ function SummaryPage() {
             <div className="mt-8 flex justify-around items-center gap-6">
             <div className="w-1/2 bg-white p-3 rounded-lg shadow-lg">
   <div className="flex justify-center items-center">
-    <Donut3DChart title = "Annual Carbon Savings" labels={['Total Annual Carbon Saved', 'Total Annual Lowest Emission']} data={[(annualHighest - annuallowest), annuallowest]} />
+    {/* <Donut3DChart title = "Annual Carbon Savings" labels={['Total Annual Carbon Saved', 'Total Annual Lowest Emission']} data={[(annualHighest - annuallowest), annuallowest]} /> */}
+    <PieChart
+  highestEmission={parseFloat(annualHighest.toFixed(6))}
+  lowestEmission={parseFloat(annuallowest.toFixed(6))}
+  savings={parseFloat(annualHighest.toFixed(6)) - parseFloat(annuallowest.toFixed(6))}
+/>
+
   </div>
 </div>
               <div className="w-1/2 bg-white p-4 rounded-lg shadow-lg">
               <div className="flex justify-center items-center">
-                <Bar
-                  data={{
-                    labels: ["Highest Emission", "Lowest Emission"],
-                    datasets: [
-                      {
-                        label: "Carbon Emissions (KgCO2e)",
-                        data: [annualHighest, annuallowest],
-                        backgroundColor: ["#ff3b3b", "#32a852"],
-                        barThickness: 75,
-                      },
-                    ],
-                  }}
+                <CarbonEmissionsChart
+                  highestEmission={parseFloat(annualHighest.toFixed(6))}
+                  lowestEmission={parseFloat(annuallowest.toFixed(6))}
                 />
               </div>
               </div>
